@@ -1,31 +1,23 @@
-### BACKSTAGE HOOK IS IN DEVELOPMENT, IT IS NOT YET FUNCTIONAL.
+### In development: Not yet functional
 
 # backstage-hook
-Backstage-hook allows Spotify Backstage plugins to execute commands on your machine. This allows for quick plugin prototyping without compromising security
+<img src="./docs/cli_example.png" height="220px"/>
 
-## Documentation
-To learn more about backstage-hook, please go to [our documentation]().
+Backstage-hook allows Spotify Backstage plugins to execute commands on your machine. This allows for quick plugin prototyping without compromising security.
 
 ## Installation
-**Install backstage-hook on your machine:**
-```bash
-wget https://github.com/kuberty/kuberty/releases/... -O /usr/local/backsage-hook && sudo chmod /usr/local/backstage-hook
-```
-Installation instructions for [Windows](), [Mac]() and [Docker]().
+Installation instructions for [Linux](), [Windows](), [Mac]() and [Docker]().
 
-**Enable the Backstage plugin on your Backstage server:**
-```bash
-# TODO
-```
+Installation instructions for [the Backstage plugin]().
 
 ## Getting started
-To run the backstage hook execute (assuming backstage is running on localhost:3000):
+To connect with Backstage:
 ```bash
 backstage-hook start http://localhost:3000 
 ```
 
-When a plugin requests to execute a command, the request will show up in your terminal where you can accept or deny it.
+Is your Backstage instance running somewhere else? Replace http://localhost:3000 with the correct URI.
 
 ## Plugins
-The following plugins use backstage-hook:
+**The following plugins use backstage-hook:**
 - None yet
