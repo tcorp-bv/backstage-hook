@@ -48,12 +48,11 @@ type Action struct {
 
 // Gets the unique hash of this action. This is achieved by encoding the struct as json and getting the base64 of the sha256sum of this json.
 // Note that as this uses the json parser, these hashes may not necessarily be the same across go versions. There should however never be collisions.
-func (a Action) Hash() (string, error) {
+func (a Action) Hash() string {
 	bytes, err := json.Marshal(a)
 	if err != nil {
-		return "", err
+		panic(err)
 	}
-
 	hash := sha256.New()
-	return base64.StdEncoding.EncodeToString(hash.Sum(bytes)), nil
+	return base64.StdEncoding.EncodeToString(hash.Sum(bytes))
 }

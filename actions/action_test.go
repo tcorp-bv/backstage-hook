@@ -32,15 +32,8 @@ func TestHashUniqueness(t *testing.T) {
 	hashes := map[string]bool{}
 
 	for _, action := range actions {
-		hash1, err := action.Hash()
-		if err != nil {
-			t.Error(err)
-		}
-
-		hash2, err := action.Hash()
-		if err != nil {
-			t.Error(err)
-		}
+		hash1 := action.Hash()
+		hash2 := action.Hash()
 
 		if hash1 != hash2 {
 			t.Error("Hash should equal itself")
@@ -55,14 +48,9 @@ func TestHashUniqueness(t *testing.T) {
 
 // Tests that an action with nil args with collide with []string{} args.
 func TestCollisionArgs(t *testing.T) {
-	h1, err := Action{Plugin: "test", Command: Command{Name: "name", Args: nil}}.Hash()
-	if err != nil {
-		t.Error(err)
-	}
-	h2, err := Action{Plugin: "test", Command: Command{Name: "name", Args: []string{}}}.Hash()
-	if err != nil {
-		t.Error(err)
-	}
+	h1 := Action{Plugin: "test", Command: Command{Name: "name", Args: nil}}.Hash()
+	h2 := Action{Plugin: "test", Command: Command{Name: "name", Args: []string{}}}.Hash()
+
 	if h1 != h2 {
 		t.Error("hashes of nil args and []string{} args should be equal")
 	}
@@ -72,7 +60,7 @@ var strings = []string{"", "test", "tests", "t", "{\"name\":\"test\"}", "Test", 
 
 // Generates a set of unique actions.
 func generateUniqueActions() []Action {
-	actions := []Action{}
+	var actions []Action
 	for _, plugin := range strings {
 		for _, commandName := range strings {
 			for argNum := 0; argNum < 3; argNum++ {
