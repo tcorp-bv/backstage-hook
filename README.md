@@ -1,6 +1,10 @@
 ### In development: Not yet functional
 
 # backstage-hook
+
+![Go](https://github.com/tcorp-bv/backstage-hook/workflows/Go/badge.svg)
+[![codecov](https://codecov.io/gh/tcorp-bv/backstage-hook/graph/badge.svg)](https://codecov.io/gh/tcorp-bv/backstage-hook)
+
 <img src="./docs/cli_example.png" height="220px"/>
 
 Backstage-hook allows Spotify Backstage plugins to execute commands on your machine. This allows for quick plugin prototyping without compromising security.
