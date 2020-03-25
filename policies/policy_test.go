@@ -44,7 +44,7 @@ func TestGetters(t *testing.T) {
 	if err == nil {
 		t.Error("byId did not throw error")
 	}
-	_, err2 := ById("Some nonexistent shortcut")
+	_, err2 := ByShortcut("Some nonexistent shortcut")
 	if err2 == nil {
 		t.Error("byShortcut did not throw error")
 	}
@@ -60,7 +60,7 @@ func TestValidity(t *testing.T) {
 			t.Error("idValid does not work")
 		}
 	}
-	if ShortcutValid("Some nonexistent id") {
+	if IdValid("Some nonexistent id") {
 		t.Error("idValid should not return true here")
 	}
 	if ShortcutValid("Some nonexistent shortcut") {
@@ -98,5 +98,15 @@ func TestUniqueIDS(t *testing.T) {
 	}
 	if len(shortcuts) != len(All()) {
 		t.Error("Policies with duplicate shortcuts")
+	}
+}
+
+// Tests that the Policy interface getters match the actual values defined in policy.
+func TestPolicyGetMethods(t *testing.T) {
+	policies := map[Policy]policy{Allow(): allow, Deny(): deny, AllowAlways(): allowAlways}
+	for P, p := range policies {
+		if P.Name() != p.name || P.Shortcut() != p.shortcut || P.Id() != p.id || P.Description() != p.description {
+			t.Error("Policy interface get method does not match policy value")
+		}
 	}
 }
