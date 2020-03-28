@@ -56,17 +56,17 @@ func TestCollisionArgs(t *testing.T) {
 	}
 }
 
-var strings = []string{"", "test", "tests", "t", "{\"name\":\"test\"}", "Test", "*"}
+var samples = []string{"", "test", "tests", "t", "{\"name\":\"test\"}", "Test", "*"}
 
 // Generates a set of unique actions.
 func generateUniqueActions() []Action {
 	var actions []Action
-	for _, plugin := range strings {
-		for _, commandName := range strings {
+	for _, plugin := range samples {
+		for _, commandName := range samples {
 			for argNum := 0; argNum < 3; argNum++ {
 				args := []string{}
 				for i := 0; i < argNum; i++ {
-					args = append(args, strings...)
+					args = append(args, samples...)
 				}
 				actions = append(actions, Action{Plugin: plugin, Command: Command{Name: commandName, Args: args}})
 			}
