@@ -55,13 +55,14 @@ const (
 	WhiteColor Color = "\033[1;37m"
 	// Save the cursor location
 	CursorSave EscapeCode = "\033[s"
-	// Go to the saved cursor location
+	// Move the cursor to the saved cursor location
 	CursorRestore EscapeCode = "\033[u"
-
+	// Move the cursor to the bottom of the terminal
 	CursorBottom EscapeCode = "\033[100B"
+	// Move the cursor to the first column of the terminal
 	CursorLeft   EscapeCode = "\033[100D"
+	// Scroll to the bottom of the terminal
 	ScrollBottom EscapeCode = "\033[3J\033[30;40m"
-	//ScrollDown EscapeCode = "\033[3J\033[1K"
 )
 
 type EscapeCode string
@@ -88,18 +89,18 @@ func (c Color) FmtString() string {
 	return string(c) + "%s\033[0m"
 }
 
-// Ansi code to move the cursor in the terminal to said row and column
+// Ansi code to move the cursor in the terminal to said row and column.
 func CursorTo(row int, col int) EscapeCode {
 	return EscapeCode(fmt.Sprintf("\033[%d;%dH", row, col))
 }
 
-// Ansi code to move the cursor up row rows
+// Ansi code to move the cursor up row rows.
 func CursorUp(rows int) EscapeCode {
 	return EscapeCode(fmt.Sprintf("\033[%dA", rows))
 }
 
 // Ansi code to scroll the cursor down n rows.
-func ScrollDown(rows int) EscapeCode {
+func CursorDown(rows int) EscapeCode {
 	return EscapeCode(fmt.Sprintf("\033[%dB", rows))
 }
 
