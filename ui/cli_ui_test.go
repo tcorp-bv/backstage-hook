@@ -43,7 +43,7 @@ func TestPromptHeight(t *testing.T) {
 
 	ui.writePrompt()
 
-	lines := strings.Count(string(buf.Bytes()), "\n") + 1
+	lines := strings.Count(buf.String()), "\n") + 1
 	if lines != promptHeight {
 		t.Error("Prompt is ", lines, " lines, expected ", promptHeight, " lines.")
 	}
