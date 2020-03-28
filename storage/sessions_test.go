@@ -91,7 +91,7 @@ var (
 	sesIds     = []string{"test", "t", "", "{\"name\":\"test\"}", "*", "Test"}
 )
 
-// Generates a set of unique actions.
+// Generates a set of unique sessions.
 func generateUniqueSessions() []sessions.Session {
 	var sess []sessions.Session
 	for i, id := range sesIds {
