@@ -22,46 +22,16 @@
  * SOFTWARE.
  */
 
-package actions
+package storage
 
-import (
-	"crypto/sha256"
-	"encoding/base64"
-	"encoding/json"
-	"fmt"
-	"strings"
-)
+import "testing"
 
-// The command that should be executed.
-type Command struct {
-	// The command
-	Name string `json:"name"`
-	// The arguments for the command
-	Args []string `json:"args,omitempty"`
-}
-
-func (c *Command) String() string {
-	if len(c.Args) == 0 {
-		return c.Name
-	}
-	return fmt.Sprintf("%s %s", c.Name, strings.Join(c.Args, " "))
-}
-
-// An action is the intent by a plugin to execute a command.
-type Action struct {
-	// The command to execute
-	Command Command `json:"command"`
-	// The plugin that supposedly executed this action
-	Plugin string `json:"plugin"`
-}
-
-// Gets the unique hash of this action. This is achieved by encoding the struct as json and getting the base64 of the sha256sum of this json.
-// Note that as this uses the json parser, these hashes may not necessarily be the same across go versions. There should however never be collisions.
-func (a Action) Hash() string {
-	bytes, err := json.Marshal(a)
-	if err != nil {
-		panic(err)
-	}
-	hash := sha256.New()
-	return base64.StdEncoding.EncodeToString(hash.Sum(bytes))
+func TestSetNilSessionPanics(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Errorf("Did not panic when a nil session was set")
+		}
+	}()
+	s := store{SessionStore: NewMemorySessionStorage()}
+	s.SetSession(nil)
 }
