@@ -62,7 +62,7 @@ func TestSessionDeletion(t *testing.T) {
 	key := "somehash"
 
 	val, contains := s.Get(key)
-	if contains || (val != StoredSession{}) {
+        if contains || (val != StoredSession{}) {
 		t.Error("Session should not be fetchable when it was not stored.")
 	}
 
