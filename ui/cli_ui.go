@@ -72,7 +72,7 @@ func (r *requestResponse) generateFile() {
 		if err != nil {
 			log.Fatal(err)
 		}
-	}
+	}()
 	r.File = f
 	if err != nil {
 		log.Fatal(err)
