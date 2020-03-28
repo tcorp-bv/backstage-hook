@@ -22,45 +22,19 @@
  * SOFTWARE.
  */
 
-package actions
+package sessions
 
-import (
-	"crypto/sha256"
-	"encoding/base64"
-	"encoding/json"
-	"fmt"
-	"strings"
-)
+import "testing"
 
-// The command that should be executed.
-type Command struct {
-	// The command
-	Name string `json:"name"`
-	// The arguments for the command
-	Args []string `json:"args,omitempty"`
-}
+var strings = []string{"", "test", "tests", "t", "{\"name\":\"test\"}", "Test", "*"}
 
-func (c *Command) String() string {
-	if len(c.Args) == 0 {
-		return c.Name
+func TestSessionConstructor(t *testing.T) {
+	for _, id := range strings {
+		for _, secret := range strings {
+			s := New(id, secret)
+			if s.Id() != id || s.Secret() != secret {
+				t.Error("The Session constructor does not properly set it's values")
+			}
+		}
 	}
-	return fmt.Sprintf("%s %s", c.Name, strings.Join(c.Args, " "))
-}
-// An action is the intent by a plugin to execute a command.
-type Action struct {
-	// The command to execute
-	Command Command `json:"command"`
-	// The plugin that supposedly executed this action
-	Plugin string `json:"plugin"`
-}
-
-// Gets the unique hash of this action. This is achieved by encoding the struct as json and getting the base64 of the sha256sum of this json.
-// Note that as this uses the json parser, these hashes may not necessarily be the same across go versions. There should however never be collisions.
-func (a Action) Hash() string {
-	bytes, err := json.Marshal(a)
-	if err != nil {
-		panic(err)
-	}
-	hash := sha256.New()
-	return base64.StdEncoding.EncodeToString(hash.Sum(bytes))
 }
