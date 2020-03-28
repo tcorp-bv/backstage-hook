@@ -39,6 +39,7 @@ func TestInjectionProtection(t *testing.T) {
 func TestPromptHeight(t *testing.T) {
 	var buf bytes.Buffer
 	ui := cliUI{App: &cli.App{Writer: &buf}}
+	ui.queue = []requestResponse{requestResponse{Req: actions.Action{Command:actions.Command{Name:"test"}, Plugin:"testplugin"}}}
 
 	ui.writePrompt()
 
