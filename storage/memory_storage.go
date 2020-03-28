@@ -61,7 +61,7 @@ func (m *memoryPolicyStorage) Get(key string) (StoredPolicy, bool) {
 func (m *memorySessionStorage) Store(key string, value StoredSession) {
 	m.Lock()
 	defer m.Unlock()
-	if (value == StoredSession{}) { // In case the StoredPolicy is empty, the session should be deleted.
+	if (value == StoredSession{}) { // In case the StoredSession is empty, the session should be deleted.
 		delete(m.storage, key)
 		return
 	}
@@ -80,7 +80,7 @@ func NewMemoryPolicyStorage() Policies {
 	return &memoryPolicyStorage{storage: map[string]StoredPolicy{}}
 }
 
-// Returns a simple, in-memory Policies implementation. Data will not persist on restart.
+// Returns a simple, in-memory Sessions implementation. Data will not persist on restart.
 func NewMemorySessionStorage() Sessions {
 	return &memorySessionStorage{storage: map[string]StoredSession{}}
 }
