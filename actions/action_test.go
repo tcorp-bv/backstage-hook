@@ -26,6 +26,18 @@ package actions
 
 import "testing"
 
+func TestString(t *testing.T) {
+	c := Command{Name: "Test"}
+	if c.String() != "Test" {
+		t.Error("Command String() did not return expected value")
+	}
+
+	c.Args = []string{"Hello", "World.", "Some argument"}
+	if c.String() != "Test Hello World. Some argument" {
+		t.Error("Command String() did not return expected value")
+	}
+}
+
 // Check that there are no collisions between a bunch of unique actions.
 func TestHashUniqueness(t *testing.T) {
 	actions := generateUniqueActions()
@@ -56,17 +68,17 @@ func TestCollisionArgs(t *testing.T) {
 	}
 }
 
-var strings = []string{"", "test", "tests", "t", "{\"name\":\"test\"}", "Test", "*"}
+var samples = []string{"", "test", "tests", "t", "{\"name\":\"test\"}", "Test", "*"}
 
 // Generates a set of unique actions.
 func generateUniqueActions() []Action {
 	var actions []Action
-	for _, plugin := range strings {
-		for _, commandName := range strings {
+	for _, plugin := range samples {
+		for _, commandName := range samples {
 			for argNum := 0; argNum < 3; argNum++ {
 				args := []string{}
 				for i := 0; i < argNum; i++ {
-					args = append(args, strings...)
+					args = append(args, samples...)
 				}
 				actions = append(actions, Action{Plugin: plugin, Command: Command{Name: commandName, Args: args}})
 			}
