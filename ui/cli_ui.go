@@ -67,7 +67,12 @@ func (r *requestResponse) FileURI() string {
 // Generates a new file and sets the command as its contents.
 func (r *requestResponse) generateFile() {
 	f, err := ioutil.TempFile(os.TempDir(), "*-command.txt")
-	defer f.Close()
+	defer func() {	
+		err = f.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	r.File = f
 	if err != nil {
 		log.Fatal(err)
@@ -131,8 +136,8 @@ func (c *cliUI) writePrompt() {
 func (c *cliUI) Setup() {
 	c.Lock()
 	defer c.Unlock()
-	fmt.Fprintf(c.App.Writer, cli.Title(c.App.Name).String())
-	fmt.Fprintf(c.App.Writer, cli.ClearScreen.String())
+	fmt.Fprintf(c.App.Writer, "%s", cli.Title(c.App.Name).String())
+	fmt.Fprintf(c.App.Writer, "%s", cli.ClearScreen.String())
 
 	c.writeHeader()
 
