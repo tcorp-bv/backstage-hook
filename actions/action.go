@@ -46,7 +46,6 @@ func (c *Command) String() string {
 	}
 	return fmt.Sprintf("%s %s", c.Name, strings.Join(c.Args, " "))
 }
-
 // An action is the intent by a plugin to execute a command.
 type Action struct {
 	// The command to execute
