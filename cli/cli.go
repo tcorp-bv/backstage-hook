@@ -28,7 +28,6 @@ package cli
 // Inspired by https://github.com/urfave/cli
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -195,7 +194,7 @@ func (a *App) executeIfCommand(cmd string, args []string) (isCommand bool, err e
 // Executes a command's Handler
 func (a *App) executeCommand(c *Command, args []string) error {
 	if c.Handler == nil {
-		return errors.New(fmt.Sprintf("%v does not have a handler.", c.Name))
+		return fmt.Errorf("%v does not have a handler.", c.Name)
 	}
 	return c.Handler(a, args)
 }
