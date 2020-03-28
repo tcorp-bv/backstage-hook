@@ -63,7 +63,7 @@ func TestSessionDeletion(t *testing.T) {
 
 	val, contains := s.Get(key)
 	if contains || (val != StoredSession{}) {
-		t.Error("Policy should not be fetchable when it was not stored.")
+		t.Error("Session should not be fetchable when it was not stored.")
 	}
 
 	s.Store(key, session)
@@ -75,6 +75,6 @@ func TestSessionDeletion(t *testing.T) {
 	s.Store(key, StoredSession{})
 	val, contains = s.Get(key)
 	if contains || (val != StoredSession{}) {
-		t.Error("Policy should not be fetchable after it was removed.")
+		t.Error("Session should not be fetchable after it was removed.")
 	}
 }
